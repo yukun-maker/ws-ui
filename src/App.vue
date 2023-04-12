@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <!-- 路由的出口 -->
     <router-view/>
   </div>
 </template>
