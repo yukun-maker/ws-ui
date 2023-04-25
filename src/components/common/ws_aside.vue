@@ -8,6 +8,7 @@
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b">
+      <h3>CRM管理系统</h3>
       <el-menu-item index="0">
         <template slot="title">
           <i class="el-icon-s-home"></i>
@@ -87,6 +88,15 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+.el-menu {
+  height: 100vh;
+  h3 {
+    color: white;
+    text-align: center;
+    line-height: 48px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
 </style>
