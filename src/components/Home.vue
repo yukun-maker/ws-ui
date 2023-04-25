@@ -1,11 +1,13 @@
 <template>
-  <div class="hello">
+  <div class="home">
     <el-container>
       <el-aside width="200px">
         <ws_aside></ws_aside>
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header>
+          <ws_header></ws_header>
+        </el-header>
         <el-main>
           <router-view></router-view>
         </el-main>
@@ -18,7 +20,8 @@
 export default {
   name: 'home',
   components: {
-    ws_aside: () => import('./common/ws_aside')
+    ws_aside: () => import('./common/ws_aside'),
+    ws_header: () => import('./common/ws_header')
   },
   data () {
     return {
@@ -33,6 +36,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.el-header {
+  padding: 0;
+}
 .el-aside {
   background-color: #D3DCE6;
   color: #333;

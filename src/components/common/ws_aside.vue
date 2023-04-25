@@ -3,7 +3,7 @@
     <el-menu
       default-active="0"
       class="el-menu-vertical-demo"
-      background-color="#545c64"
+      background-color="rgb(50,65,87)"
       text-color="#fff"
       active-text-color="#ffd04b">
       <h3>CRM管理系统</h3>
@@ -98,6 +98,7 @@ export default {
 <style scoped lang="less">
 .el-menu {
   height: 100vh;
+  border-right: none;
   h3 {
     color: white;
     text-align: center;
