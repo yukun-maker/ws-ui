@@ -1,12 +1,10 @@
 <template>
-  <div>
-    产品管理
-  </div>
+  <div>公海客户</div>
 </template>
 
 <script>
 export default {
-  name: "product"
+  name: "CommonCustomer"
 }
 </script>
 

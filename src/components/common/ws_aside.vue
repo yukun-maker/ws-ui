@@ -3,24 +3,26 @@
     <el-menu
       default-active="0"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b">
       <h3>CRM管理系统</h3>
-      <el-menu-item index="0">
+      <el-menu-item :index="menuData[0].name" :key="menuData[0].name" @click="clickMenu(menuData[0])">
         <template slot="title">
           <i class="el-icon-s-home"></i>
           <span>首页</span>
         </template>
       </el-menu-item>
-      <el-submenu v-for="item in menuData" :index="item.name" :key="item.name">
+      <el-submenu v-for="item in menuData.filter(el => el.children)" :index="item.name" :key="item.name">
         <template slot="title">
           <i :class="`el-icon-${item.icon}`"></i>
           <span>{{ item.label }}</span>
         </template>
-        <el-menu-item v-for="child in item.children" :index="child.name" :key="child.name">{{ child.label }}</el-menu-item>
+        <el-menu-item v-for="child in item.children"
+                      :index="child.name"
+                      :key="child.name"
+                      @click="clickMenu(child)"
+        >{{ child.label }}</el-menu-item>
       </el-submenu>
     </el-menu>
   </div>
@@ -32,6 +34,12 @@ export default {
   data() {
     return {
       menuData: [
+        {
+          path: '/',
+          label: '首页',
+          icon: 's-home',
+          name: 'homePage',
+        },
         {
           label: '客户管理',
           icon: 'user',
@@ -78,11 +86,10 @@ export default {
     }
   },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    clickMenu(item) {
+      if (this.$route.path !== item.path && (this.$route.path !== '/HomePage' || item.path !== '/')) {
+        this.$router.push(item.path)
+      }
     }
   }
 }

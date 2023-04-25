@@ -1,12 +1,10 @@
 <template>
-  <div>
-    客户管理
-  </div>
+  <div>我的订单</div>
 </template>
 
 <script>
 export default {
-  name: "customer"
+  name: "MyOrder"
 }
 </script>
 
