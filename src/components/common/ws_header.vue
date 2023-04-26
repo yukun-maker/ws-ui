@@ -1,7 +1,7 @@
 <template>
   <div class="header-container">
     <div class="left-container">
-      <el-button icon="el-icon-menu" size="medium"></el-button>
+      <el-button icon="el-icon-menu" size="medium" @click="collapseMenu"></el-button>
       <span class="breadcrumb-text">首页</span>
     </div>
     <div class="right-container">
@@ -20,7 +20,12 @@
 
 <script>
 export default {
-  name: "ws_header"
+  name: "ws_header",
+  methods: {
+    collapseMenu() {
+      this.$store.commit('collapseMenu')
+    }
+  }
 }
 </script>
 

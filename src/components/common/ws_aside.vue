@@ -5,13 +5,13 @@
       class="el-menu-vertical-demo"
       background-color="rgb(50,65,87)"
       text-color="#fff"
-      active-text-color="#ffd04b">
-      <h3>CRM管理系统</h3>
+      active-text-color="#ffd04b"
+      :collapse="isCollapse"
+    >
+      <h3>{{ isCollapse ? 'WS' : 'WS管理系统' }}</h3>
       <el-menu-item :index="menuData[0].name" :key="menuData[0].name" @click="clickMenu(menuData[0])">
-        <template slot="title">
-          <i class="el-icon-s-home"></i>
-          <span>首页</span>
-        </template>
+        <i class="el-icon-s-home"></i>
+        <span>首页</span>
       </el-menu-item>
       <el-submenu v-for="item in menuData.filter(el => el.children)" :index="item.name" :key="item.name">
         <template slot="title">
@@ -31,6 +31,11 @@
 <script>
 export default {
   name: "ws_aside",
+  computed: {
+    isCollapse() {
+      return this.$store.state.tab.isCollapse
+    }
+  },
   data() {
     return {
       menuData: [

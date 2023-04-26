@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <el-container>
-      <el-aside width="200px">
+      <el-aside :width="isCollapse ? 'auto' : '200px'">
         <ws_aside></ws_aside>
       </el-aside>
       <el-container>
@@ -22,6 +22,11 @@ export default {
   components: {
     ws_aside: () => import('./common/ws_aside'),
     ws_header: () => import('./common/ws_header')
+  },
+  computed: {
+    isCollapse() {
+      return this.$store.state.tab.isCollapse
+    }
   },
   data () {
     return {
