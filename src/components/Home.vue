@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <el-container>
+    <el-container style="height: 100vh">
       <el-aside :width="isCollapse ? 'auto' : '200px'">
         <ws_aside></ws_aside>
       </el-aside>

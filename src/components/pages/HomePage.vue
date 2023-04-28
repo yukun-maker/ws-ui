@@ -20,6 +20,7 @@
           <el-table
             :data="tableData"
             style="width: 100%"
+            height="40vh"
             :row-class-name="tableRowClassName">
             <el-table-column
               prop="date"
@@ -43,25 +44,14 @@
           <div slot="header" class="clearfix">
             <span>系统公告</span>
           </div>
-          <el-table
-            :data="tableData"
-            :show-header="false"
-            style="width: 100%">
-            <el-table-column
-              prop="date"
-              label="日期"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="姓名"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="地址">
-            </el-table-column>
-          </el-table>
+          <div style="height: 20vh; overflow-y: auto">
+            <div v-for="item in systemData"
+                 :key="item.id"
+                 class="notice_item">
+              <div>{{ item.title }}</div>
+              <div><i :class="`el-icon-${item.icon}`"></i>{{ item.date }}</div>
+            </div>
+          </div>
         </el-card>
       </el-col>
     </el-row>
@@ -131,6 +121,14 @@ export default {
   }
   .el-table .success-row {
     background: #f0f9eb;
+  }
+  .notice_item {
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(242,242,242);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 </style>
