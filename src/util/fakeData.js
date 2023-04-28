@@ -1,5 +1,59 @@
 
 export class fakeData {
+  // 菜单列表
+  static getMenuList() {
+    return [
+      {
+        path: '/',
+        label: '首页',
+        icon: 's-home',
+        name: 'homePage',
+      },
+      {
+        label: '客户管理',
+        icon: 'user',
+        name:'customer',
+        children: [
+          {
+            path: '/customerList',
+            name: 'customerList',
+            label: '客户列表',
+            icon: 'setting',
+            url: 'customer/customerList'
+          },
+          {
+            path: '/commonCustomer',
+            name: 'commonCustomer',
+            label: '公海客户',
+            icon: 'setting',
+            url: 'customer/commonCustomer'
+          }
+        ]
+      },
+      {
+        label: '订单管理',
+        icon: 's-order',
+        name:'order',
+        children: [
+          {
+            path: '/allOrder',
+            name: 'allOrder',
+            label: '全部订单',
+            icon: 'setting',
+            url: 'order/allOrder'
+          },
+          {
+            path: '/myOrder',
+            name: 'myOrder',
+            label: '我的订单',
+            icon: 'setting',
+            url: 'order/myOrder'
+          }
+        ]
+      }
+    ]
+  }
+  // 首页表格
   static getHomePageTable() {
     return [{
       date: '2016-05-02',
@@ -31,6 +85,7 @@ export class fakeData {
       address: '上海市普陀区金沙江路 1518 弄'
     }]
   }
+  // 首页系统公告
   static getNotices() {
     return [
       {

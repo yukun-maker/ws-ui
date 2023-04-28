@@ -38,56 +38,7 @@ export default {
   },
   data() {
     return {
-      menuData: [
-        {
-          path: '/',
-          label: '首页',
-          icon: 's-home',
-          name: 'homePage',
-        },
-        {
-          label: '客户管理',
-          icon: 'user',
-          name:'customer',
-          children: [
-            {
-              path: '/customerList',
-              name: 'customerList',
-              label: '客户列表',
-              icon: 'setting',
-              url: 'customer/customerList'
-            },
-            {
-              path: '/commonCustomer',
-              name: 'commonCustomer',
-              label: '公海客户',
-              icon: 'setting',
-              url: 'customer/commonCustomer'
-            }
-          ]
-        },
-        {
-          label: '订单管理',
-          icon: 's-order',
-          name:'order',
-          children: [
-            {
-              path: '/allOrder',
-              name: 'allOrder',
-              label: '全部订单',
-              icon: 'setting',
-              url: 'order/allOrder'
-            },
-            {
-              path: '/myOrder',
-              name: 'myOrder',
-              label: '我的订单',
-              icon: 'setting',
-              url: 'order/myOrder'
-            }
-          ]
-        }
-      ]
+      menuData: this.$fakeData.getMenuList()
     }
   },
   methods: {
