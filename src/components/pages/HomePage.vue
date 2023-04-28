@@ -3,6 +3,7 @@
   <div id="homePage">
     <el-row>
       <el-col :span="8">
+        <!-- 用户信息 -->
         <el-card class="box-card">
           <div class="user">
             <img src="@/assets/images/astronaut.png"/>
@@ -16,6 +17,7 @@
             <p>上次登录地点:<span>上海</span></p>
           </div>
         </el-card>
+        <!-- 表格 -->
         <el-card class="box-card" style="margin-top: 10px">
           <el-table
             :data="tableData"
@@ -38,13 +40,18 @@
             </el-table-column>
           </el-table>
         </el-card>
+        <!-- 柱状图 -->
+        <el-card class="box-card" style="margin-top: 10px">
+          <div ref="echarts_bar" style="height: 300px"></div>
+        </el-card>
       </el-col>
-      <el-col :span="16">
-        <el-card class="box-card" style="margin-left: 10px">
+      <el-col :span="16" style="padding-left: 10px">
+        <!-- 系统公告 -->
+        <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>系统公告</span>
           </div>
-          <div style="height: 20vh; overflow-y: auto">
+          <div style="height: 30vh; overflow-y: auto">
             <div v-for="item in systemData"
                  :key="item.id"
                  class="notice_item">
@@ -53,12 +60,22 @@
             </div>
           </div>
         </el-card>
+        <!-- 折线图 -->
+        <el-card class="box-card" style="margin-top: 10px">
+          <div ref="echarts_line" style="height: 400px"></div>
+        </el-card>
+        <!-- 散点图 -->
+        <el-card class="box-card" style="margin-top: 10px">
+          <div ref="echarts_scatter" style="height: 500px"></div>
+        </el-card>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+import * as echarts from 'echarts'
+
 export default {
   name: "HomePage",
   data() {
@@ -66,6 +83,10 @@ export default {
       tableData: this.$fakeData.getHomePageTable(),
       systemData: this.$fakeData.getNotices()
     }
+  },
+  mounted() {
+    // 初始化图表
+    this.initEcharts()
   },
   methods: {
     tableRowClassName({row, rowIndex}) {
@@ -75,6 +96,18 @@ export default {
         return 'success-row';
       }
       return '';
+    },
+    // 初始化图表
+    initEcharts() {
+      // 柱状图
+      let myEcharts = echarts.init(this.$refs.echarts_bar);
+      myEcharts.setOption(this.$fakeData.getBarOptions())
+      // 折线图
+      myEcharts = echarts.init(this.$refs.echarts_line);
+      myEcharts.setOption(this.$fakeData.getLineOptions())
+      // 散点图
+      myEcharts = echarts.init(this.$refs.echarts_scatter);
+      myEcharts.setOption(this.$fakeData.getScatterOptions())
     }
   }
 }
