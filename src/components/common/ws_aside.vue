@@ -38,14 +38,45 @@ export default {
   },
   data() {
     return {
-      menuData: this.$fakeData.getMenuList()
+      menuData: []
     }
   },
+  created() {
+    this.init()
+  },
   methods: {
+    init() {
+      this.menuData = this.$fakeData.getMenuList()
+      this.$store.commit('updateMenuPathMap', this.updateStateMenuPathMap(this.menuData))
+    },
+    // 更新全局变量路径-菜单集合
+    updateStateMenuPathMap(menuList) {
+      let tarMap = new Map()
+      menuList.forEach(item => {
+        tarMap.set(item.path, item)
+        if (item.children) {
+          tarMap = new Map([...tarMap, ...this.updateStateMenuPathMap(item.children)])
+        }
+      })
+      return tarMap
+    },
     clickMenu(item) {
-      if (this.$route.path !== item.path && (this.$route.path !== '/HomePage' || item.path !== '/')) {
-        this.$router.push(item.path)
+      this.$router.push(item.path)
+      if (item.path !== '/') {
+        const breadcrumbs = this.generateBreadcrumb(item)
+        this.$store.commit('updateBreadcrumbItems', breadcrumbs)
+      } else {
+        this.$store.commit('updateBreadcrumbItems', [])
       }
+    },
+    // 构造面包屑数组
+    generateBreadcrumb(menuItem) {
+      let breadcrumb = [{path: menuItem.path, label: menuItem.label}]
+      if (menuItem.parentPath && menuItem.parentPath !== 'root') {
+        const parentMenu = this.$store.state.tab.menuPathMap.get(menuItem.parentPath)
+        breadcrumb = this.generateBreadcrumb(parentMenu).concat(breadcrumb)
+      }
+      return breadcrumb
     }
   }
 }

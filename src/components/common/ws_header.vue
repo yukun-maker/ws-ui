@@ -2,7 +2,11 @@
   <div class="header-container">
     <div class="left-container">
       <el-button icon="el-icon-menu" size="medium" @click="collapseMenu"></el-button>
-      <span class="breadcrumb-text">首页</span>
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item v-for="item in breadcrumbItems" :key="item.path">
+          {{ item.label }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
     </div>
     <div class="right-container">
       <el-dropdown>
@@ -19,8 +23,15 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
   name: "ws_header",
+  computed: {
+    ...mapState({
+      breadcrumbItems: state => state.tab.breadcrumbItemList
+    })
+  },
   methods: {
     collapseMenu() {
       this.$store.commit('collapseMenu')
@@ -38,10 +49,23 @@ export default {
     align-items: center;
     .left-container {
       padding-left: 20px;
-      .breadcrumb-text {
-        color: white;
-        font-size: 16px;
-        margin-left: 10px;
+      display: flex;
+      align-items: center;
+      .el-breadcrumb {
+        padding-left: 10px;
+        /deep/ .el-breadcrumb__item{
+          .el-breadcrumb__inner {
+            font-weight: normal;
+            &.is-link {
+              color: #666;
+            }
+          }
+          &:last-child {
+            .el-breadcrumb__inner {
+              color: #fff;
+            }
+          }
+        }
       }
     }
     .right-container {

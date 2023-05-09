@@ -9,6 +9,11 @@ import AllOrder from '@/components/pages/order/AllOrder'
 import MyOrder from '@/components/pages/order/MyOrder'
 
 Vue.use(Router)
+// 解决菜单或路由重复跳转报错问题
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 export default new Router({
   routes: [

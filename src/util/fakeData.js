@@ -9,46 +9,61 @@ export class fakeData {
         label: '首页',
         icon: 's-home',
         name: 'homePage',
+        parentPath: 'root'
       },
       {
+        path: '/customer',
         label: '客户管理',
         icon: 'user',
         name:'customer',
+        type: 'catalog',
+        parentPath: 'root',
         children: [
           {
             path: '/customerList',
             name: 'customerList',
             label: '客户列表',
             icon: 'setting',
-            url: 'customer/customerList'
+            url: 'customer/customerList',
+            type: 'menu',
+            parentPath: '/customer'
           },
           {
             path: '/commonCustomer',
             name: 'commonCustomer',
             label: '公海客户',
             icon: 'setting',
-            url: 'customer/commonCustomer'
+            url: 'customer/commonCustomer',
+            type: 'menu',
+            parentPath: '/customer'
           }
         ]
       },
       {
+        path: '/order',
         label: '订单管理',
         icon: 's-order',
         name:'order',
+        type: 'catalog',
+        parentPath: 'root',
         children: [
           {
             path: '/allOrder',
             name: 'allOrder',
             label: '全部订单',
             icon: 'setting',
-            url: 'order/allOrder'
+            url: 'order/allOrder',
+            type: 'menu',
+            parentPath: '/order'
           },
           {
             path: '/myOrder',
             name: 'myOrder',
             label: '我的订单',
             icon: 'setting',
-            url: 'order/myOrder'
+            url: 'order/myOrder',
+            type: 'menu',
+            parentPath: '/order'
           }
         ]
       }
@@ -126,31 +141,31 @@ export class fakeData {
         icon:'timer'
       },
       {
-        id: 2,
+        id: 11,
         date: "2022-10-25 10:28",
         title: "【娱乐】李亚鹏回应被强制执行4千万",
         icon:'timer'
       },
       {
-        id: 3,
+        id: 13,
         date: "2022-10-24 10:10",
         title: "【文旅】改善消费条件 增强消费后劲",
         icon:'timer'
       },
       {
-        id: 4,
+        id: 14,
         date: "2022-10-23 12:01",
         title: "【外媒】拜登宣布美国进入紧急状态",
         icon:'timer'
       },
       {
-        id: 5,
+        id: 15,
         date: "2022-10-22 11:00",
         title: "【内部分享】如何建立良好的客户关系",
         icon:'timer'
       },
       {
-        id: 6,
+        id: 16,
         date: "2022-10-21 21:09",
         title: "【内部调整】组织架构调整",
         icon:'timer'
