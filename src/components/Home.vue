@@ -8,6 +8,7 @@
         <el-header>
           <ws_header></ws_header>
         </el-header>
+        <ws_home_tag></ws_home_tag>
         <el-main>
           <router-view></router-view>
         </el-main>
@@ -21,7 +22,8 @@ export default {
   name: 'home',
   components: {
     ws_aside: () => import('./common/ws_aside'),
-    ws_header: () => import('./common/ws_header')
+    ws_header: () => import('./common/ws_header'),
+    ws_home_tag: () => import('./common/ws_home_tag')
   },
   computed: {
     isCollapse() {
@@ -48,5 +50,8 @@ export default {
   background-color: #D3DCE6;
   color: #333;
   text-align: left;
+}
+.el-main {
+  padding: 15px;
 }
 </style>
