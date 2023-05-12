@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
+
 export default {
   name: "ws_aside",
   computed: {
@@ -38,13 +40,18 @@ export default {
   },
   data() {
     return {
-      menuData: []
+      menuData: [],
+      homePageItem: {
+        path: '/',
+        label: '首页',
+      }
     }
   },
   created() {
     this.init()
   },
   methods: {
+    ...mapMutations(['updateBreadcrumbItems', 'updateHomeTags']),
     init() {
       this.menuData = this.$fakeData.getMenuList()
       this.$store.commit('updateMenuPathMap', this.updateStateMenuPathMap(this.menuData))
@@ -63,8 +70,10 @@ export default {
     clickMenu(item) {
       this.$router.push(item.path)
       if (item.path !== '/') {
-        const breadcrumbs = this.generateBreadcrumb(item)
-        this.$store.commit('updateBreadcrumbItems', breadcrumbs)
+        // 面包屑
+        this.$store.commit('updateBreadcrumbItems', this.generateBreadcrumb(item))
+        // 顶部Tag
+        this.updateHomeTags(this.createTags(item))
       } else {
         this.$store.commit('updateBreadcrumbItems', [])
       }
@@ -77,6 +86,18 @@ export default {
         breadcrumb = this.generateBreadcrumb(parentMenu).concat(breadcrumb)
       }
       return breadcrumb
+    },
+    // 构造顶部Tag
+    createTags(menuItem) {
+      let tarTags = []
+      const currTags = this.$store.state.tab.homeTags
+      if (currTags.length === 0) {
+        tarTags.push(this.homePageItem)
+      }
+      if (currTags.findIndex(el => el.path === menuItem.path) === -1) {
+        tarTags.push({ path: menuItem.path, label: menuItem.label })
+      }
+      return tarTags
     }
   }
 }

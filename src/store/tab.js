@@ -1,3 +1,5 @@
+import router from '@/router'
+
 export default {
   state: {
     // 菜单折叠状态
@@ -11,7 +13,8 @@ export default {
         label: '首页',
         name: 'homePage',
       }
-    ]
+    ],
+    homeTags: []
   },
   mutations: {
     collapseMenu(state) {
@@ -29,6 +32,24 @@ export default {
         }
       ]
       state.breadcrumbItemList = headItem.concat(items)
+    },
+    updateHomeTags(state, tagItems) {
+      if (tagItems && tagItems.length > 0) {
+        state.homeTags = state.homeTags.concat(tagItems)
+      }
+      window.sessionStorage.setItem('tags', JSON.stringify(state.homeTags))
+    },
+    closeTag(state, tagItem, toPath) {
+      const index = state.homeTags.findIndex(el => el.path === tagItem.path)
+      state.homeTags.splice(index, 1)
+      if (router.currentRoute.path === tagItem.path) {
+        if (toPath) {
+          router.push(toPath)
+        } else {
+          router.push(state.homeTags[index-1].path)
+        }
+      }
+      window.sessionStorage.setItem('tags', JSON.stringify(state.homeTags))
     }
   }
 }

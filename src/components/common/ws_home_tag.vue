@@ -1,27 +1,37 @@
 <template>
   <div class="home_tag">
     <el-tag
-      v-for="item in items"
+      v-for="item in tags"
       :key="item.label"
-      :type="item.type"
-      effect="dark">
+      :closable="item.path !== '/'"
+      @click="onTagClicked(item)"
+      @close="onTagClosed(item)"
+      :effect="item.path === $route.path || item.path === '/' && $route.path === '/HomePage' ? 'dark' : 'plain'">
       {{ item.label }}
     </el-tag>
   </div>
 </template>
 
 <script>
+import {mapState, mapMutations} from 'vuex'
+
 export default {
   name: "ws_home_tag",
+  computed: {
+    ...mapState({
+      tags: state => state.tab.homeTags
+    })
+  },
   data() {
-    return {
-      items: [
-        { type: '', label: '标签一' },
-        { type: '', label: '标签二' },
-        { type: '', label: '标签三' },
-        { type: '', label: '标签四' },
-        { type: '', label: '标签五' }
-      ]
+    return {}
+  },
+  methods: {
+    ...mapMutations(['closeTag']),
+    onTagClicked(tagItem) {
+      this.$router.push(tagItem.path)
+    },
+    onTagClosed(tagItem) {
+      this.closeTag(tagItem)
     }
   }
 }

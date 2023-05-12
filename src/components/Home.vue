@@ -8,7 +8,9 @@
         <el-header>
           <ws_header></ws_header>
         </el-header>
-        <ws_home_tag></ws_home_tag>
+        <div v-if="$store.state.tab.homeTags && $store.state.tab.homeTags.length > 1">
+          <ws_home_tag></ws_home_tag>
+        </div>
         <el-main>
           <router-view></router-view>
         </el-main>
@@ -18,6 +20,8 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
+
 export default {
   name: 'home',
   components: {
@@ -30,13 +34,23 @@ export default {
       return this.$store.state.tab.isCollapse
     }
   },
+  created() {
+    this.initTags()
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
   },
   methods: {
-
+    ...mapMutations(['updateHomeTags']),
+    initTags() {
+      const currTags = this.$store.state.tab.homeTags
+      const sessionTags = window.sessionStorage.getItem('tags')
+      if ((!currTags || currTags.length === 0) && sessionTags) {
+        this.updateHomeTags(JSON.parse(sessionTags))
+      }
+    }
   }
 }
 </script>
