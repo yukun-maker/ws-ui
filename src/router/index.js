@@ -7,6 +7,7 @@ import CustomerList from '@/components/pages/customer/CustomerList'
 import CommonCustomer from '@/components/pages/customer/CommonCustomer'
 import AllOrder from '@/components/pages/order/AllOrder'
 import MyOrder from '@/components/pages/order/MyOrder'
+import Login from '@/components/common/login'
 
 Vue.use(Router)
 // 解决菜单或路由重复跳转报错问题
@@ -45,6 +46,10 @@ export default new Router({
           component: MyOrder
         }
       ]
+    }, {
+      path: '/login',
+      name: 'login',
+      component: Login,
     }
   ]
 })
