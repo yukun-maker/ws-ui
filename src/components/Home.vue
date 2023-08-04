@@ -12,7 +12,9 @@
           <ws_home_tag></ws_home_tag>
         </div>
         <el-main>
-          <router-view></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
         </el-main>
       </el-container>
     </el-container>
