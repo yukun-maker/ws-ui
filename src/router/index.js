@@ -7,6 +7,7 @@ import CustomerList from '@/components/pages/customer/CustomerList'
 import CommonCustomer from '@/components/pages/customer/CommonCustomer'
 import AllOrder from '@/components/pages/order/AllOrder'
 import MyOrder from '@/components/pages/order/MyOrder'
+import ElementTest from '@/components/pages/test/ElementTest'
 import Login from '@/components/common/login'
 
 Vue.use(Router)
@@ -44,6 +45,10 @@ export default new Router({
           path: '/MyOrder',
           name: 'myOrder',
           component: MyOrder
+        }, {
+          path: '/elementTest',
+          name: 'elementTest',
+          component: ElementTest
         }
       ]
     }, {

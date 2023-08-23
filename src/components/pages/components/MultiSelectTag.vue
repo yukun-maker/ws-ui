@@ -8,6 +8,7 @@
      clearable
      @change="onSelectChanged"
      style="margin-left: 20px;"
+     size="medium"
      placeholder="请选择">
      <el-option
        v-for="item in options"

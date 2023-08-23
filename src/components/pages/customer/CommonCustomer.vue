@@ -1,11 +1,16 @@
 <template>
-  <el-checkbox-group
-    v-model="checkedCities">
-    <el-checkbox v-for="city in cities"
-                 :label="city.label"
-                 :value="city.value"
-                 :key="city.value"></el-checkbox>
-  </el-checkbox-group>
+  <div>
+    <el-checkbox-group
+      v-model="checkedCities">
+      <el-checkbox v-for="city in cities"
+                   :label="city.label"
+                   :value="city.value"
+                   :key="city.value"></el-checkbox>
+    </el-checkbox-group>
+    <span v-if="this.$route.params">{{ this.$route.params.id }}</span>
+<!--    <span v-if="this.$route.params">{{ this.$route }}</span>-->
+  </div>
+
 </template>
 
 <script>

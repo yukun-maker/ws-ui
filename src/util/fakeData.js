@@ -66,6 +66,25 @@ export class fakeData {
             parentPath: '/order'
           }
         ]
+      },
+      {
+        path: '/test',
+        label: '测试',
+        icon: 's-order',
+        name:'test',
+        type: 'catalog',
+        parentPath: 'root',
+        children: [
+          {
+            path: '/elementTest',
+            name: 'elementTest',
+            label: '单组件测试',
+            icon: 'setting',
+            url: 'test/elementTest',
+            type: 'menu',
+            parentPath: '/test'
+          }
+        ]
       }
     ]
   }
