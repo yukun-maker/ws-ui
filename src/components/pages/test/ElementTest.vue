@@ -101,11 +101,15 @@
         </el-col>
       </el-row>
     </el-form>
-    <div>
-      <el-button type="primary" @click="onBtnClicked()">跳转</el-button>
+    <div class="test-buttons-box">
+      <el-button class="test-button-item" type="primary" @click="onBtnClicked()">跳转</el-button>
       <el-badge :is-dot="true">
-        <el-button type="primary">小红点</el-button>
+        <el-button class="test-button-item" type="primary">小红点</el-button>
       </el-badge>
+      <el-tooltip effect="light" placement="top" content="重置筛选条件并刷新列表">
+        <el-button class="test-circle-button test-button-item" icon="el-icon-refresh" circle></el-button>
+      </el-tooltip>
+
     </div>
     <el-dialog title="Multi Select with Tag"
                :visible.sync="dialogMultiSelectShow"
@@ -224,5 +228,24 @@ export default {
 }
 .multi-select-dialog {
   padding: 10px 20px;
+}
+.test-buttons-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.test-button-item {
+  margin-left: 5px;
+}
+.test-circle-button {
+  max-height: 39px;
+  max-width: 39px;
+  border: 0px;
+  color: #4892e3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 900;
 }
 </style>
