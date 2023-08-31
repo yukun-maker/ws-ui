@@ -109,7 +109,7 @@
       <el-tooltip effect="light" placement="top" content="重置筛选条件并刷新列表">
         <el-button class="test-circle-button test-button-item" icon="el-icon-refresh" circle></el-button>
       </el-tooltip>
-
+      <el-button class="iconfont" circle>&#xe671;</el-button>
     </div>
     <el-dialog title="Multi Select with Tag"
                :visible.sync="dialogMultiSelectShow"
@@ -212,7 +212,8 @@ export default {
       this.dialogMultiSelectShow = false
     },
     onBtnClicked() {
-      this.$router.push({name: 'commonCustomer', params: {id: '123'}})
+      const startDate = new Date('2023-6-20')
+      // this.$router.push({name: 'commonCustomer', params: {id: '123'}})
     }
   }
 }

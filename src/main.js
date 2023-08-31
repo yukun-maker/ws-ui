@@ -6,6 +6,7 @@ import router from './router'
 // 导入ElementUI
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
+import '@/assets/icon/iconfont.css'
 import store from './store'
 
 import {fakeData} from '@/util/fakeData'
