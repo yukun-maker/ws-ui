@@ -83,6 +83,15 @@ export class fakeData {
             url: 'test/elementTest',
             type: 'menu',
             parentPath: '/test'
+          },
+          {
+            path: '/assetSplit',
+            name: 'assetSplit',
+            label: '产品间直接调仓资产拆分及调整',
+            icon: 'crop',
+            url: 'test/assetSplit',
+            type: 'menu',
+            parentPath: '/test'
           }
         ]
       }

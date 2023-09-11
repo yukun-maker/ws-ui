@@ -8,6 +8,7 @@ import CommonCustomer from '@/components/pages/customer/CommonCustomer'
 import AllOrder from '@/components/pages/order/AllOrder'
 import MyOrder from '@/components/pages/order/MyOrder'
 import ElementTest from '@/components/pages/test/ElementTest'
+import AssetSplit from '@/components/pages/assetSplit'
 import Login from '@/components/common/login'
 
 Vue.use(Router)
@@ -49,6 +50,10 @@ export default new Router({
           path: '/elementTest',
           name: 'elementTest',
           component: ElementTest
+        }, {
+          path: '/assetSplit',
+          name: 'assetSplit',
+          component: AssetSplit
         }
       ]
     }, {

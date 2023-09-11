@@ -68,6 +68,6 @@ export default {
   text-align: left;
 }
 .el-main {
-  padding: 15px;
+  padding: 5px 5px 0 5px;
 }
 </style>

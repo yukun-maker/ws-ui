@@ -3,7 +3,7 @@ import router from '@/router'
 export default {
   state: {
     // 菜单折叠状态
-    isCollapse: false,
+    isCollapse: true,
     // 菜单的path - menuItem集合
     menuPathMap: new Map(),
     // 面包屑集合
