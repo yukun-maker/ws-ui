@@ -1,6 +1,6 @@
 <template>
-  <div style="margin: 3px">
-    <div style="display: flex; align-items: center">
+  <div ref="splitInDiv" style="margin: 3px; height: 100%">
+    <div ref="splitInQueryFormDiv" style="display: flex; align-items: center">
       <el-form ref="queryForm" :model="queryParams" label-width="80px" style="height: 15%">
         <el-row>
           <el-col :span="8">
@@ -38,9 +38,14 @@
       <el-button style="height: 70px">查询</el-button>
     </div>
     <!-- 产品信息 -->
-    <el-table :data="prodTableData" height="81%" border style="width: 100%;">
+    <el-table :data="prodTableData" height="tableHeight" border style="width: 100%;">
       <el-table-column type="selection" align="center" width="40"></el-table-column>
       <el-table-column type="index" align="center" label="序号" width="50"></el-table-column>
+      <el-table-column prop="productCode" show-overflow-tooltip label="产品代码" width="150"></el-table-column>
+      <el-table-column prop="balance" show-overflow-tooltip label="可用余额" width="100"></el-table-column>
+      <el-table-column prop="yield" show-overflow-tooltip label="目标收益率" width="100"></el-table-column>
+      <el-table-column prop="account" show-overflow-tooltip label="实时头寸" width="150"></el-table-column>
+      <el-table-column prop="cc" show-overflow-tooltip label="实时持仓" width="150"></el-table-column>
       <el-table-column prop="productCode" show-overflow-tooltip label="产品代码" width="150"></el-table-column>
       <el-table-column prop="balance" show-overflow-tooltip label="可用余额" width="100"></el-table-column>
       <el-table-column prop="yield" show-overflow-tooltip label="目标收益率" width="100"></el-table-column>
@@ -60,12 +65,36 @@
 export default {
   name: "splitIn",
   props: {},
+  mounted() {
+    this.$nextTick(() => {
+      this.tableHeight = this.$refs.splitInDiv.clientHeight - this.$refs.splitInQueryFormDiv.clientHeight - 15
+    })
+    // 页面大小改变监听事件
+    window.onresize = () => {
+      // console.log(this.$refs.splitInDiv);
+      // console.log(this.$refs.splitInDiv.clientHeight);
+      // console.log(this.$refs.splitInQueryFormDiv.clientHeight);
+      this.tableHeight = this.$refs.splitInDiv.clientHeight - this.$refs.splitInQueryFormDiv.clientHeight - 15
+      // console.log('onresize');
+    }
+  },
   data() {
     return {
+      tableHeight: 1000,
       queryParams: {},
       prodTableData: [
         {productCode: 'A1D33F53a1f5a456e', balance: '16,531', yield: '3', account: '8,948,635', cc: '315,643,150'},
-        {productCode: 'A1D33F5', balance: '15,896', yield: '5', account: '6,948,635', cc: '300,643,150'}
+        {productCode: 'A1D33F5', balance: '15,896', yield: '5', account: '6,948,635', cc: '300,643,150'},
+        {productCode: 'A1D33F53a1f5a456e', balance: '16,531', yield: '3', account: '8,948,635', cc: '315,643,150'},
+        {productCode: 'A1D33F5', balance: '15,896', yield: '5', account: '6,948,635', cc: '300,643,150'},
+        {productCode: 'A1D33F53a1f5a456e', balance: '16,531', yield: '3', account: '8,948,635', cc: '315,643,150'},
+        {productCode: 'A1D33F5', balance: '15,896', yield: '5', account: '6,948,635', cc: '300,643,150'},
+        {productCode: 'A1D33F53a1f5a456e', balance: '16,531', yield: '3', account: '8,948,635', cc: '315,643,150'},
+        {productCode: 'A1D33F5', balance: '15,896', yield: '5', account: '6,948,635', cc: '300,643,150'},
+        {productCode: 'A1D33F53a1f5a456e', balance: '16,531', yield: '3', account: '8,948,635', cc: '315,643,150'},
+        {productCode: 'A1D33F5', balance: '15,896', yield: '5', account: '6,948,635', cc: '300,643,150'},
+        {productCode: 'A1D33F53a1f5a456e', balance: '16,531', yield: '3', account: '8,948,635', cc: '315,643,150'},
+        {productCode: 'A1D33F5', balance: '15,896', yield: '5', account: '6,948,635', cc: '300,643,150'},
       ]
     }
   },

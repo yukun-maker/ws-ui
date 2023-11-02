@@ -24,11 +24,16 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="用户登录名" prop="userAccountName">
-            <el-input v-model="form.userAccountName"
-                      maxlength="30"
-                      placeholder="请输入登录名"
-                      size="small"
-                      show-word-limit></el-input>
+<!--            <el-popover placement="top-start" trigger="hover" :content="form.userAccountName">-->
+            <el-tooltip class="calc-tooltip-item" placement="top-start" :content="form.userAccountName">
+              <el-input v-model="form.userAccountName"
+                        maxlength="30"
+                        placeholder="请输入登录名"
+                        size="small"
+                        show-word-limit></el-input>
+            </el-tooltip>
+
+<!--            </el-popover>>-->
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -41,7 +46,10 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="O45用户编码" prop="hsUserCode">
-            <el-input v-model="form.hsUserCode" maxlength="30" placeholder="请输入O45用户编码" show-word-limit></el-input>
+            <el-tooltip placement="top-start" :content="form.hsUserCode">
+              <el-input v-model="form.hsUserCode" maxlength="30" placeholder="请输入O45用户编码" show-word-limit></el-input>
+            </el-tooltip>
+
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -104,7 +112,10 @@
     <div class="test-buttons-box">
       <el-button class="test-button-item" type="primary" @click="onBtnClicked()">跳转</el-button>
       <el-badge :is-dot="true">
-        <el-button class="test-button-item" type="primary">小红点</el-button>
+        <el-tooltip placement="top" content="16545">
+          <el-button class="test-button-item" type="primary">小红点</el-button>
+        </el-tooltip>
+
       </el-badge>
       <el-tooltip effect="light" placement="top" content="重置筛选条件并刷新列表">
         <el-button class="test-circle-button test-button-item" icon="el-icon-refresh" circle></el-button>
@@ -145,6 +156,7 @@ export default {
       return new Date(b.date).getTime() - new Date(a.date).getTime()
     })
     console.log(arr)
+    this.calcTooltipItems()
   },
   data() {
     return {
@@ -153,8 +165,8 @@ export default {
       form: {
         account: 10000,
         userName: undefined,
-        userAccountName: undefined,
-        hsUserCode: undefined,
+        userAccountName: 'a13fe51a1',
+        hsUserCode: '31af86e',
         userType: '1',
         userStatus: '1',
         departmentCode: undefined,
@@ -199,6 +211,17 @@ export default {
     }
   },
   methods: {
+    calcTooltipItems() {
+      const doms = document.getElementsByClassName('calc-tooltip-item')
+      console.log(doms[0], 'doms');
+      console.log(doms[0].attributes['aria-describedby'].value, 'doms');
+
+      const elementId = doms[0].attributes['aria-describedby'].value
+      console.log(elementId, 'elementId');
+
+      const itemDom = document.getElementById(elementId)
+      console.log(itemDom, 'domItem');
+    },
     showMultiSelectDialog() {
       this.dialogMultiSelectShow = true
     },
