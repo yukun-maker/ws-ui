@@ -23,7 +23,10 @@
             :data="tableData"
             style="width: 100%"
             height="40vh"
-            :row-class-name="tableRowClassName">
+            :row-class-name="tableRowClassName"
+            :infinite-scroll-disabled="loadMoreDisabled"
+            v-el-table-infinite-scroll="loadMore"
+          >
             <el-table-column
               prop="date"
               label="日期"
@@ -75,13 +78,18 @@
 
 <script>
 import * as echarts from 'echarts'
+import elTableInfiniteScroll from 'el-table-infinite-scroll'
 
 export default {
   name: "HomePage",
+  directives: {
+    'el-table-infinite-scroll': elTableInfiniteScroll
+  },
   data() {
     return {
       tableData: this.$fakeData.getHomePageTable(),
-      systemData: this.$fakeData.getNotices()
+      systemData: this.$fakeData.getNotices(),
+      loadMoreDisabled: false
     }
   },
   mounted() {
@@ -108,6 +116,34 @@ export default {
       // 散点图
       myEcharts = echarts.init(this.$refs.echarts_scatter);
       myEcharts.setOption(this.$fakeData.getScatterOptions())
+    },
+    loadMore() {
+      console.log('loadMore');
+      this.loadMoreDisabled = true
+      this.$confirm('是否加载更多数据？', '提示', {
+        type: 'warning',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(() => {
+        this.tableData = this.tableData.concat([{
+          date: '2016-05-02',
+          name: '王小虎2',
+          address: '上海市普陀区金沙江路 1518 弄',
+        }, {
+          date: '2016-05-04',
+          name: '陈小龙2',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-01',
+          name: '马大帅2',
+          address: '上海市普陀区金沙江路 1518 弄',
+        }])
+        // this.loadMoreDisabled = false
+      }).catch(() => {
+        this.loadMoreDisabled = false
+      }).finally(() => {
+        this.loadMoreDisabled = false
+      })
     }
   }
 }
