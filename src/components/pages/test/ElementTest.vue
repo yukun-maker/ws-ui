@@ -17,7 +17,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="用户类型" prop="userType">
-            <el-select v-model="form.userType" placeholder="请选择用户类型" clearable style="width: 100%">
+            <el-select class="radius-select" v-model="form.userType" placeholder="请选择用户类型" clearable style="width: 100%">
               <el-option label="普通用户" value="1"></el-option>
             </el-select>
           </el-form-item>
@@ -271,5 +271,8 @@ export default {
   align-items: center;
   font-size: 24px;
   font-weight: 900;
+}
+/deep/ .radius-select .el-input--suffix .el-input__inner{
+  border-radius: 20px;
 }
 </style>
