@@ -9,6 +9,9 @@ import AllOrder from '@/components/pages/order/AllOrder'
 import MyOrder from '@/components/pages/order/MyOrder'
 import ElementTest from '@/components/pages/test/ElementTest'
 import AssetSplit from '@/components/pages/assetSplit'
+import formItemCheckBox from '@/components/pages/test/formItemCheckBox'
+import hugeDataTable from '@/components/pages/test/hugeDataTable'
+import myTable from '@/components/pages/test/myTable'
 import Login from '@/components/common/login'
 
 Vue.use(Router)
@@ -54,6 +57,18 @@ export default new Router({
           path: '/assetSplit',
           name: 'assetSplit',
           component: AssetSplit
+        }, {
+          path: '/formItemCheckBox',
+          name: 'formItemCheckBox',
+          component: formItemCheckBox
+        }, {
+          path: '/hugeDataTable',
+          name: 'hugeDataTable',
+          component: hugeDataTable
+        }, {
+          path: '/myTable',
+          name: 'myTable',
+          component: myTable
         }
       ]
     }, {

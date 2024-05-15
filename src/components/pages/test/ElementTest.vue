@@ -53,14 +53,16 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="部门" prop="departmentCode">
+          <el-form-item label="部门" prop="departmentCode" class="form-item-flex">
             <el-select v-model="form.departmentCode"
                        filterable
                        placeholder="请选择部门"
-                       style="width: 100%">
+                       size="mini"
+                       style="width: 90%">
               <el-option key="101" label="市场部" value="101"></el-option>
               <el-option key="102" label="策划部" value="102"></el-option>
             </el-select>
+            <el-button size="mini" icon="el-icon-search"></el-button>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -105,6 +107,22 @@
             <el-input v-model="form.dynamicTag" disabled>
               <el-button slot="append" icon="el-icon-search" @click="showDynamicTagDialog"></el-button>
             </el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="输入建议" prop="inputSuggest">
+            <el-autocomplete
+              class="inline-input"
+              v-model="form.inputSuggest"
+              clearable
+              :fetch-suggestions="querySearch"
+              @select="handleSelect"
+              @blur="onInputSuggestBlur"
+              placeholder="请输入内容"
+              style="width: 100%"
+            >
+              <el-button slot="append" icon="el-icon-search" @click="showDynamicTagDialog"></el-button>
+            </el-autocomplete>
           </el-form-item>
         </el-col>
       </el-row>
@@ -176,7 +194,8 @@ export default {
         multiSelectTag: undefined,
         multiSelectLabel: undefined,
         multiSelectTags: [],
-        dynamicTag: undefined
+        dynamicTag: undefined,
+        inputSuggest: undefined
       },
       rules: {
         userName: [
@@ -207,7 +226,13 @@ export default {
         phoneNumber: [
           {required: true, message: '请输入手机号码', trigger: 'blur'},
         ]
-      }
+      },
+      restaurants: [
+        { "value": "三全鲜食（北新泾店）", "address": "长宁区新渔路144号" },
+        { "value": "Hot honey 首尔炸鸡（仙霞路）", "address": "上海市长宁区淞虹路661号" },
+        { "value": "新旺角茶餐厅", "address": "上海市普陀区真北路988号创邑金沙谷6号楼113" },
+        { "value": "泷千家(天山西路店)", "address": "天山西路438号" }
+      ],
     }
   },
   methods: {
@@ -237,6 +262,23 @@ export default {
     onBtnClicked() {
       const startDate = new Date('2023-6-20')
       // this.$router.push({name: 'commonCustomer', params: {id: '123'}})
+    },
+    querySearch(queryString, callback) {
+      const restaurants = this.restaurants;
+      const results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+      // 调用 callback 返回建议列表的数据
+      callback(results);
+    },
+    createFilter(queryString) {
+      return (restaurant) => {
+        return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) > -1);
+      };
+    },
+    handleSelect(item) {
+      console.log(item);
+    },
+    onInputSuggestBlur() {
+      console.log('onInputSuggestBlur')
     }
   }
 }
@@ -274,5 +316,10 @@ export default {
 }
 /deep/ .radius-select .el-input--suffix .el-input__inner{
   border-radius: 20px;
+}
+
+/deep/ .form-item-flex .el-form-item__content {
+  display: flex;
+  align-items: center;
 }
 </style>

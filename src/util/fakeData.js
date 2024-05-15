@@ -92,6 +92,33 @@ export class fakeData {
             url: 'test/assetSplit',
             type: 'menu',
             parentPath: '/test'
+          },
+          {
+            path: '/formItemCheckBox',
+            name: 'formItemCheckBox',
+            label: '表单复选框',
+            icon: 'crop',
+            url: 'test/formItemCheckBox',
+            type: 'menu',
+            parentPath: '/test'
+          },
+          {
+            path: '/hugeDataTable',
+            name: 'hugeDataTable',
+            label: '大数据量表格',
+            icon: 'crop',
+            url: 'test/hugeDataTable',
+            type: 'menu',
+            parentPath: '/test'
+          },
+          {
+            path: '/myTable',
+            name: 'myTable',
+            label: '表格',
+            icon: 'crop',
+            url: 'test/myTable',
+            type: 'menu',
+            parentPath: '/test'
           }
         ]
       }
@@ -475,5 +502,21 @@ export class fakeData {
         }
       ]
     };
+  }
+  // 获取大数据量表格内容
+  static getHugeTableData() {
+    const ret = []
+    for (let i = 0; i < 100000; i++) {
+      ret.push({name: '小小'+i, address: '青岛'+i, remark: '数据'+i})
+    }
+    return ret
+  }
+  // 列表数据
+  static getTableData() {
+    const ret = []
+    for (let i = 0; i < 100; i++) {
+      ret.push({product: '产品'+i, address: '青岛'+i, stock: 100, remark: '数据'+i})
+    }
+    return ret
   }
 }
