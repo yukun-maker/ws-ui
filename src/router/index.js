@@ -12,6 +12,7 @@ import AssetSplit from '@/components/pages/assetSplit'
 import formItemCheckBox from '@/components/pages/test/formItemCheckBox'
 import hugeDataTable from '@/components/pages/test/hugeDataTable'
 import myTable from '@/components/pages/test/myTable'
+import tableBesidesSetting from '@/views/tableBesidesSetting'
 import Login from '@/components/common/login'
 
 Vue.use(Router)
@@ -69,6 +70,10 @@ export default new Router({
           path: '/myTable',
           name: 'myTable',
           component: myTable
+        }, {
+          path: '/tableBesidesSetting',
+          name: 'tableBesidesSetting',
+          component: tableBesidesSetting
         }
       ]
     }, {

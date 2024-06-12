@@ -119,6 +119,15 @@ export class fakeData {
             url: 'test/myTable',
             type: 'menu',
             parentPath: '/test'
+          },
+          {
+            path: '/tableBesidesSetting',
+            name: 'tableBesidesSetting',
+            label: '表格（带设置）',
+            icon: 'crop',
+            url: 'tableBesidesSetting',
+            type: 'menu',
+            parentPath: '/test'
           }
         ]
       }
@@ -516,6 +525,20 @@ export class fakeData {
     const ret = []
     for (let i = 0; i < 100; i++) {
       ret.push({product: '产品'+i, address: '青岛'+i, stock: 100, remark: '数据'+i})
+    }
+    return ret
+  }
+  static getColumnSetting() {
+
+  }
+  // 表格(带配置)数据
+  static getTableBesidesSettingData() {
+    const ret = []
+    for (let i = 0; i < 100; i++) {
+      ret.push({_id: Math.random()*10000, productCode: '产品'+i, assetCode: '资产'+i, faceValue: 100+i, assetType: '资产类型'+i,
+        investType: '投资分类'+i, account: 10000+i, amount: 1000000+i, profitRate: 3+i, bank: '托管行'+i,
+        creator: '创建人'+i, createDate: '创建时间'+i, updater: '更新人'+i, updateDate: '更新时间'+i, _orderIndex: i,
+        popoverTableList: [{date: "date1"+i, name:"名称1"+i, address:"地址1"+i}, {date: "date2"+i, name:"名称2"+i, address:"地址2"+i}]})
     }
     return ret
   }

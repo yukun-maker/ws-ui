@@ -9,12 +9,17 @@ import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/icon/iconfont.css'
 import store from './store'
 
+import _ from 'lodash'
+
 import {fakeData} from '@/util/fakeData'
+import globalComponents from '@/util/globalComponents'
 
 Vue.config.productionTip = false
 Vue.prototype.$fakeData = fakeData
 
 Vue.use(ElementUI)
+Vue.use(_)
+Vue.use(globalComponents)
 
 /* eslint-disable no-new */
 new Vue({
