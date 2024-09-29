@@ -2,6 +2,7 @@
   <div class="dync-table" :class="className">
     <el-table
       ref="dyncTable"
+      row-key="_id"
       :data="tableData"
       :max-height="customTableHeight || 300"
       :height="customTableHeight || 300"
@@ -420,6 +421,9 @@ export default {
     // 选中行数据
     selectionChange(val) {
       this.selectionRows = val
+      this.$nextTick(() => {
+        // this.$refs.dyncTable.doLayout()
+      })
     },
     // setRowStyle({ row, rowIndex }) {
     //   if (!this.pk) {

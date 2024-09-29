@@ -534,7 +534,7 @@ export class fakeData {
   // 表格(带配置)数据
   static getTableBesidesSettingData() {
     const ret = []
-    for (let i = 0; i < 100; i++) {
+    for (let i = 1; i < 101; i++) {
       ret.push({_id: Math.random()*10000, productCode: '产品'+i, assetCode: '资产'+i, faceValue: 100+i, assetType: '资产类型'+i,
         investType: '投资分类'+i, account: 10000+i, amount: 1000000+i, profitRate: 3+i, bank: '托管行'+i,
         creator: '创建人'+i, createDate: '创建时间'+i, updater: '更新人'+i, updateDate: '更新时间'+i, _orderIndex: i,

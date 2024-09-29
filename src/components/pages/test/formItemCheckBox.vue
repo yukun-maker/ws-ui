@@ -80,11 +80,9 @@ export default {
 </script>
 
 <style scoped>
-.el-checkbox {
+.form_checkbox {
   margin-left: 10px;
   margin-top: 9px;
-}
-.form_checkbox {
   transform: scale(1.5)
 }
 </style>

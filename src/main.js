@@ -20,6 +20,7 @@ Vue.prototype.$fakeData = fakeData
 Vue.use(ElementUI)
 Vue.use(_)
 Vue.use(globalComponents)
+// Vue.use(Decimal)
 
 /* eslint-disable no-new */
 new Vue({

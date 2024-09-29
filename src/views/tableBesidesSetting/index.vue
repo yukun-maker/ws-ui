@@ -29,16 +29,28 @@ import {fakeData} from "@/util/fakeData";
 
 export default {
   name: "tableBesidesSetting",
+  computed: {
+    getSelectOpts() {
+      return this.selectOpts
+    }
+  },
   created() {
   },
   mounted() {
     this.onSearchBtnClicked()
+    const list = this.$refs.dyncTable.newFieldList
+    const field = list.find(el => el.prop === 'investType')
+    if (field) {
+      field.slotProps.options = this.selectOpts
+    }
+    // this.selectOpts = [{key: "101", label:"市场部", value:"101"}, {key: "102", label:"策划部", value:"102"}]
   },
   data() {
     return {
       module: 'tableBesidesSetting',
       tableHeight: 500,
       tableData: [],
+      selectOpts: [{key: "101", label:"市场部", value:"101"}, {key: "102", label:"策划部", value:"102"}],
       fieldList: [
         { prop: 'productCode', label: '产品', width: 150, showOverflowTooltip: true },
         { prop: 'assetCode', label: '资产', width: 150, showOverflowTooltip: true },
@@ -58,7 +70,7 @@ export default {
             selectClass: 'selectWithBtn_select',
             btnClass: 'selectWithBtn_btn',
             btnIcon: 'el-icon-search',
-            options: [{key: "101", label:"市场部", value:"101"}, {key: "102", label:"策划部", value:"102"}]
+            options: []
           }},
         { prop: 'account', label: '持仓', width: 150, showOverflowTooltip: true, type: 'input' },
         { prop: 'amount', label: '头寸', width: 150, showOverflowTooltip: true, type: 'number' },

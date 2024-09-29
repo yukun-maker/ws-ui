@@ -39,8 +39,11 @@
         <el-col :span="12">
           <el-form-item label="用户状态" prop="userStatus">
             <el-select v-model="form.userStatus" placeholder="请选择用户状态" style="width: 100%">
+              <el-input v-model="inputInSelect" class="el-select-inner-input" size="small"></el-input>
               <el-option key="1" label="正常" value="1"></el-option>
               <el-option key="0" label="禁用" value="0"></el-option>
+              <el-option key="2" label="休假" value="2"></el-option>
+              <el-option key="3" label="出差" value="3"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -56,11 +59,19 @@
           <el-form-item label="部门" prop="departmentCode" class="form-item-flex">
             <el-select v-model="form.departmentCode"
                        filterable
+                       :filter-method="handleFilter"
                        placeholder="请选择部门"
                        size="mini"
+                       multiple
+                       collapse-tags
+                       reserve-keyword
+                       @focus="onDepartmentCodeFocus"
+                       @blur="onDepartmentCodeBlur"
                        style="width: 90%">
-              <el-option key="101" label="市场部" value="101"></el-option>
-              <el-option key="102" label="策划部" value="102"></el-option>
+              <el-option v-for="item in deptOpts"
+                         :key="item.value"
+                         :label="item.label"
+                         :value="item.value"></el-option>
             </el-select>
             <el-button size="mini" icon="el-icon-search"></el-button>
           </el-form-item>
@@ -125,10 +136,23 @@
             </el-autocomplete>
           </el-form-item>
         </el-col>
+        <el-col :span="12">
+          <el-form-item label="PI位数" prop="precision">
+            <el-input
+              class="inline-input"
+              v-model="form.inputSuggest"
+              clearable
+              placeholder="请输入内容"
+              style="width: 100%"
+            >
+            </el-input>
+          </el-form-item>
+        </el-col>
       </el-row>
     </el-form>
     <div class="test-buttons-box">
       <el-button class="test-button-item" type="primary" @click="onBtnClicked()">跳转</el-button>
+      <el-button class="test-button-item" type="primary" @click="onPiBtnClicked()">开始计算</el-button>
       <el-badge :is-dot="true">
         <el-tooltip placement="top" content="16545">
           <el-button class="test-button-item" type="primary">小红点</el-button>
@@ -161,6 +185,8 @@
 </template>
 
 <script>
+import Decimal from "decimal.js";
+
 export default {
   name: "ElementTest",
   components: {
@@ -180,6 +206,7 @@ export default {
     return {
       dialogMultiSelectShow: false,
       dialogDynamicTagShow: false,
+      inputInSelect: undefined,
       form: {
         account: 10000,
         userName: undefined,
@@ -195,7 +222,8 @@ export default {
         multiSelectLabel: undefined,
         multiSelectTags: [],
         dynamicTag: undefined,
-        inputSuggest: undefined
+        inputSuggest: undefined,
+        precision: undefined
       },
       rules: {
         userName: [
@@ -233,6 +261,13 @@ export default {
         { "value": "新旺角茶餐厅", "address": "上海市普陀区真北路988号创邑金沙谷6号楼113" },
         { "value": "泷千家(天山西路店)", "address": "天山西路438号" }
       ],
+      deptOpts: [
+        {value: '100', label: '部门一'},
+        {value: '101', label: '部门二'},
+        {value: '102', label: '部门三'},
+        {value: '103', label: '部门四'},
+        {value: '104', label: '部门五'},
+      ]
     }
   },
   methods: {
@@ -263,6 +298,34 @@ export default {
       const startDate = new Date('2023-6-20')
       // this.$router.push({name: 'commonCustomer', params: {id: '123'}})
     },
+    onPiBtnClicked() {
+      console.log(this.calculatePiTo100Digit());
+    },
+    calculatePiTo100Digit() {
+      // let denominator = 1; // 分母初始值为1
+      // let numerator = 1; // 分子初始值为1
+      // let pi = 0; // 用于累加计算出的圆周率的每一位
+      // let carry = 0; // 进位
+      // let digits = 100; // 要计算的圆周率的位数
+      //
+      // for (let i = 1; i <= digits; i++) {
+      //   // 根据公式计算圆周率的下一位
+      //   pi = (numerator / denominator) + carry;
+      //   carry = Math.floor(pi); // 计算进位
+      //   numerator = (numerator + 2) * 2; // 分子更新
+      //   denominator = denominator + 4; // 分母更新
+      // }
+      // return pi.toFixed(digits).substring(0, digits); // 转换为字符串并截取前100位
+      // 使用莱布尼茨（Leibniz）式求圆周率，每次迭代计算一位
+      let piBuilder = '3.1'; // 前三位固定
+      for (let i = 0; i < 99; i++) { // 加上前面的3., 一共是100位
+        piBuilder += this.digitAt(i);
+      }
+      return piBuilder
+    },
+    digitAt(n) {
+      return 4 * (parseInt(Math.round(Math.pow(-1, n) * (6 * Math.pow(10, n) - 5))));
+    },
     querySearch(queryString, callback) {
       const restaurants = this.restaurants;
       const results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
@@ -279,6 +342,14 @@ export default {
     },
     onInputSuggestBlur() {
       console.log('onInputSuggestBlur')
+    },
+    handleFilter(val, option) {
+    },
+    onDepartmentCodeFocus() {
+      console.log('focus');
+    },
+    onDepartmentCodeBlur() {
+      console.log('blur');
     }
   }
 }
@@ -321,5 +392,10 @@ export default {
 /deep/ .form-item-flex .el-form-item__content {
   display: flex;
   align-items: center;
+}
+.el-select-inner-input {
+  width: 97%;
+  padding-left: 10px;
+  padding-bottom: 5px;
 }
 </style>
