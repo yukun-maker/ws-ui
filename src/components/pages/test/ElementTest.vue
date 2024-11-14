@@ -148,6 +148,14 @@
             </el-input>
           </el-form-item>
         </el-col>
+        <el-col>
+          <el-radio-group v-model="radio1">
+            <el-radio-button label="1">上海</el-radio-button>
+            <el-radio-button label="2">北京</el-radio-button>
+            <el-radio-button label="3">广州</el-radio-button>
+            <el-radio-button label="4">深圳</el-radio-button>
+          </el-radio-group>
+        </el-col>
       </el-row>
     </el-form>
     <div class="test-buttons-box">
@@ -267,7 +275,8 @@ export default {
         {value: '102', label: '部门三'},
         {value: '103', label: '部门四'},
         {value: '104', label: '部门五'},
-      ]
+      ],
+      radio1: '2'
     }
   },
   methods: {
