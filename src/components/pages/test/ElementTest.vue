@@ -196,6 +196,7 @@
                class="progress-dialog"
                :show-close="false"
                :close-on-click-modal="false"
+               :close-on-press-escape="false"
                width="30%">
       <progressDialog
         :percentage="percentage"
