@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h1>测试h1</h1>
+    <h2>测试h2</h2>
     <el-form ref="form"
              :model="form"
              :rules="rules"
@@ -161,6 +163,7 @@
     <div class="test-buttons-box">
       <el-button class="test-button-item" type="primary" @click="onBtnClicked()">跳转</el-button>
       <el-button class="test-button-item" type="primary" @click="onPiBtnClicked()">开始计算</el-button>
+      <el-button class="test-button-item" type="primary" @click="openProgress()">进度条</el-button>
       <el-badge :is-dot="true">
         <el-tooltip placement="top" content="16545">
           <el-button class="test-button-item" type="primary">小红点</el-button>
@@ -189,6 +192,15 @@
                width="30%">
       <dynamicSelectTag @cancel="dialogDynamicTagShow = false"></dynamicSelectTag>
     </el-dialog>
+    <el-dialog :visible.sync="dialogProgressDialogShow"
+               class="progress-dialog"
+               :show-close="false"
+               :close-on-click-modal="false"
+               width="30%">
+      <progressDialog
+        :percentage="percentage"
+        @cancel="dialogProgressDialogShow = false"></progressDialog>
+    </el-dialog>
   </div>
 </template>
 
@@ -200,6 +212,7 @@ export default {
   components: {
     multiSelect: () => import('../components/MultiSelectTag'),
     dynamicSelectTag: () => import('../components/dynamicSelectTag'),
+    progressDialog: () => import('../components/progressDialog'),
   },
   mounted() {
     console.log('Test_mounted');
@@ -214,6 +227,7 @@ export default {
     return {
       dialogMultiSelectShow: false,
       dialogDynamicTagShow: false,
+      dialogProgressDialogShow: false,
       inputInSelect: undefined,
       form: {
         account: 10000,
@@ -276,7 +290,8 @@ export default {
         {value: '103', label: '部门四'},
         {value: '104', label: '部门五'},
       ],
-      radio1: '2'
+      radio1: '2',
+      percentage: 0,
     }
   },
   methods: {
@@ -359,7 +374,32 @@ export default {
     },
     onDepartmentCodeBlur() {
       console.log('blur');
-    }
+    },
+    // 打开进度条弹窗
+    openProgress() {
+      this.dialogProgressDialogShow = true
+      this.percentage = 20
+      this.updatePercentage(this.percentage, 1000).then(() => {
+        setTimeout(() => {
+          this.dialogProgressDialogShow = false
+        }, 1000)
+      })
+    },
+    async updatePercentage(percent, ms) {
+      if (percent >= 100) {
+        return
+      }
+      await this.delay(ms)
+      this.percentage += 5
+      await this.updatePercentage(this.percentage, 500)
+    },
+    async delay(ms) {
+      return await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve()
+        }, ms)
+      })
+    },
   }
 }
 </script>
@@ -406,5 +446,13 @@ export default {
   width: 97%;
   padding-left: 10px;
   padding-bottom: 5px;
+}
+/deep/ .progress-dialog .el-dialog {
+  background: transparent;
+  box-shadow: unset;
+  margin-top: 35vh !important;
+}
+/deep/ .progress-dialog .el-progress__text {
+  color: white !important;
 }
 </style>
